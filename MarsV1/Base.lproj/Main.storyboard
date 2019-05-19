@@ -52,7 +52,32 @@
                                     </pickerView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="enX-ZK-jrF">
                                         <rect key="frame" x="0.0" y="360" width="320" height="180"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="E42-to-MVX">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Predicted Price(millions)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Zp-R6-llw">
+                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AsL-wu-9UT">
+                                                        <rect key="frame" x="0.0" y="90" width="320" height="90"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
                                         <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="E42-to-MVX" firstAttribute="leading" secondItem="enX-ZK-jrF" secondAttribute="leading" id="Lye-MY-sGC"/>
+                                            <constraint firstAttribute="bottom" secondItem="E42-to-MVX" secondAttribute="bottom" id="MZi-b3-ozr"/>
+                                            <constraint firstItem="E42-to-MVX" firstAttribute="top" secondItem="enX-ZK-jrF" secondAttribute="top" id="sTh-fa-F4F"/>
+                                            <constraint firstAttribute="trailing" secondItem="E42-to-MVX" secondAttribute="trailing" id="w9l-mP-Oeo"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                             </stackView>
@@ -68,6 +93,7 @@
                     </view>
                     <connections>
                         <outlet property="pickerView" destination="LRf-f9-4Vy" id="M9W-cl-vSA"/>
+                        <outlet property="priceLabel" destination="AsL-wu-9UT" id="i13-7F-ZjM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

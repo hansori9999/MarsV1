@@ -12,9 +12,24 @@ enum Feature: Int {
     case solarPanels = 0, greenhouses, size }
 
 class ViewController: UIViewController,UIPickerViewDelegate {
+    
+    /// Formatter for the output.
+    let priceFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.maximumFractionDigits = 0
+        formatter.usesGroupingSeparator = true
+        formatter.locale = Locale(identifier: "en_US")
+        return formatter
+    }()
+    
+    /* Initialize CoreML Model */
+    let model = MarsHabitatPricer()
+    
     /// Data source for the picker.
     let pickerDataSource = PickerDataSource()
 
+    @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var pickerView: UIPickerView!{
         didSet {
             
@@ -51,9 +66,28 @@ class ViewController: UIViewController,UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         print(" Selected row=",row, component)
         
-        //updatePredictedPrice()
+        updatePredictedPrice()
     }
     
+    func updatePredictedPrice() {
+        func selectedRow(for feature: Feature) -> Int {
+            return pickerView.selectedRow(inComponent: feature.rawValue)
+        }
+        
+        let solarPanels = pickerDataSource.value(for: selectedRow(for: .solarPanels), feature: .solarPanels)
+        let greenhouses = pickerDataSource.value(for: selectedRow(for: .greenhouses), feature: .greenhouses)
+        let size = pickerDataSource.value(for: selectedRow(for: .size), feature: .size)
+        
+        print("solarPanels =", solarPanels,greenhouses, size)
+        
+        guard let marsHabitatPricerOutput = try? model.prediction(solarPanels: solarPanels, greenhouses: greenhouses, size: size) else {
+            fatalError("Unexpected runtime error.")
+        }
+        
+        let price = marsHabitatPricerOutput.price
+        priceLabel.text = priceFormatter.string(for: price)
+    }
+
  }
 
 
